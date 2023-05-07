@@ -1,7 +1,3 @@
 class ItemModel {
-  constructor(
-    name,
-    description,
-    img,
-  ) {}
+  constructor(name, description, img, itemID) {}
 }
