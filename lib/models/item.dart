@@ -4,12 +4,15 @@ class ItemModel {
   final String itemID;
   final double price;
   final String currency;
+  final String imageUrl;
 
-  ItemModel(
-      {required this.name,
-      required this.itemID,
-      required this.price,
-      required this.currency});
+  ItemModel({
+    required this.name,
+    required this.itemID,
+    required this.price,
+    required this.currency,
+    required this.imageUrl,
+  });
 
   factory ItemModel.fromJson(Map json) {
     return ItemModel(
@@ -17,6 +20,7 @@ class ItemModel {
       itemID: json['itemID'],
       price: json['price'],
       currency: json['currency'],
+      imageUrl: json['imageUrl'],
     );
   }
 }
