@@ -13,7 +13,7 @@ class AppRoutes {
 
   static final routes = [
     GetPage(name: startScreen, page: () => StartScreen()),
-    GetPage(name: homeScreen, page: () => HomeScreen()),
+    GetPage(name: homeScreen, page: () => HomePage()),
     GetPage(name: buyingSection, page: () => BuyingSection()),
     GetPage(
         name: itemDetails,
