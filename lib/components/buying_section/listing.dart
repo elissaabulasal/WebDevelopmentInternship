@@ -72,7 +72,9 @@ class SecondPage extends StatelessWidget {
                 tag: heroTag,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(_images[heroTag]),
+                  child: Image.network(
+                    _images[heroTag],
+                  ),
                 ),
               ),
             ),
@@ -102,7 +104,7 @@ class SecondPage extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(45.0),
+                  padding: const EdgeInsets.all(25.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -150,6 +152,7 @@ class SecondPage extends StatelessWidget {
 }
 
 final List<String> _images = [
+  'https://firebasestorage.googleapis.com/v0/b/guidly-90eb5.appspot.com/o/Lebanese%20cedar%20wood%20handicrafts.jfif?alt=media&token=b017d75d-5ed6-438d-b11a-05d57c0f782e',
   'https://firebasestorage.googleapis.com/v0/b/guidly-90eb5.appspot.com/o/watch.jpg?alt=media&token=d0dd1f41-23f7-4c38-8000-0923b331cd1e',
-  'https://firebasestorage.googleapis.com/v0/b/guidly-90eb5.appspot.com/o/bottle.webp?alt=media&token=0fc9c87e-d8b8-456c-9473-f33a8da32066',
+  'https://firebasestorage.googleapis.com/v0/b/guidly-90eb5.appspot.com/o/handcraft%20plates.jfif?alt=media&token=0c62a22b-8c64-4153-8d70-90d6ca9edee9',
 ];

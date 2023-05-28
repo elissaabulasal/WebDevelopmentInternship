@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:guidly/components/home_page/place.dart';
+import 'package:guidly/models/place.dart';
 import 'package:guidly/components/image_360/image_360.dart';
 import 'package:guidly/components/map/static_map.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PlaceDetailPage extends StatelessWidget {
-  final Place place;
+  final PlaceModel place;
 
   const PlaceDetailPage({
     Key? key,
@@ -23,6 +23,8 @@ class PlaceDetailPage extends StatelessWidget {
       }
     }
 
+    MediaQueryData mediaQueryData = MediaQuery.of(context);
+    double screenWidth = mediaQueryData.size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text('Place Detail'),
@@ -39,7 +41,10 @@ class PlaceDetailPage extends StatelessWidget {
                 children: [
                   Container(
                     child: Image.network(
-                        "https://firebasestorage.googleapis.com/v0/b/guidly-90eb5.appspot.com/o/anjar.jpg?alt=media&token=2eb3044a-f8bd-45d1-ba83-464e4aa1964a"),
+                      place.imageUrl,
+                      height: 150,
+                      width: screenWidth,
+                    ),
                   ),
                   Center(
                     child: ElevatedButton(
@@ -47,7 +52,9 @@ class PlaceDetailPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MyPanoramaWidget()),
+                              builder: (context) => MyPanoramaWidget(
+                                    place: place,
+                                  )),
                         );
                       },
                       child: Text('Open 360 View'),

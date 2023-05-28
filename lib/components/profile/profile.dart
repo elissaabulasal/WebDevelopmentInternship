@@ -1,60 +1,121 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:guidly/components/Sign/sign_in.dart';
+import 'package:guidly/components/sign/sign_up.dart';
 
 class ProfilePage1 extends StatelessWidget {
   const ProfilePage1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+    print("asddassad");
+    print(user);
     return Column(
       children: [
         const Expanded(flex: 2, child: _TopPortion()),
-        Expanded(
-          flex: 3,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Text(
-                  "Safa Anbara",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      ?.copyWith(fontWeight: FontWeight.bold),
+        user != null
+            ? Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Safa Anbara",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FloatingActionButton.extended(
+                            onPressed: () {},
+                            heroTag: 'follow',
+                            elevation: 0,
+                            label: const Text("Edit Profile"),
+                            icon: const Icon(Icons.edit),
+                          ),
+                          const SizedBox(width: 16.0),
+                          FloatingActionButton.extended(
+                            onPressed: () async {
+                              await FirebaseAuth.instance.signOut();
+                              User? currentUser =
+                                  FirebaseAuth.instance.currentUser;
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilePage1()),
+                              );
+                            },
+                            heroTag: 'message',
+                            elevation: 0,
+                            backgroundColor: Colors.red,
+                            label: const Text("LogOut"),
+                            icon: const Icon(Icons.logout),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      const _ProfileInfoRow()
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FloatingActionButton.extended(
-                      onPressed: () {},
-                      heroTag: 'follow',
-                      elevation: 0,
-                      label: const Text("Edit Profile"),
-                      icon: const Icon(Icons.edit),
-                    ),
-                    const SizedBox(width: 16.0),
-                    FloatingActionButton.extended(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignInPage()),
-                        );
-                      },
-                      heroTag: 'mesage',
-                      elevation: 0,
-                      backgroundColor: Colors.red,
-                      label: const Text("LogOut"),
-                      icon: const Icon(Icons.logout),
-                    ),
-                  ],
+              )
+            : Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Join Us!",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FloatingActionButton.extended(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignInPage()),
+                              );
+                            },
+                            heroTag: 'follow',
+                            elevation: 0,
+                            label: const Text("LogIn"),
+                            icon: const Icon(Icons.login),
+                          ),
+                          const SizedBox(width: 16.0),
+                          FloatingActionButton.extended(
+                            onPressed: () async {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignupScreen()),
+                              );
+                            },
+                            heroTag: 'message',
+                            elevation: 0,
+                            backgroundColor: Colors.green,
+                            label: const Text("SignUp"),
+                            icon: const Icon(Icons.app_registration),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 16),
-                const _ProfileInfoRow()
-              ],
-            ),
-          ),
-        ),
+              )
       ],
     );
   }
@@ -125,56 +186,63 @@ class _TopPortion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+
     return Stack(
       fit: StackFit.expand,
       children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: 50),
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [Color(0xff0043ba), Color(0xff006df1)]),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(50),
-                bottomRight: Radius.circular(50),
-              )),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            width: 150,
-            height: 150,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            'https://instagram.fbey22-1.fna.fbcdn.net/v/t51.2885-19/334588518_5786811308114765_3685955864041344258_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fbey22-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=j8qNnJtPvlwAX_wwsyj&edm=ALlQn9MBAAAA&ccb=7-5&oh=00_AfCPc9Vz00BSE-VioyGnYPcEF8KlCPDweI3NToEyUXC_kg&oe=64780597&_nc_sid=463a08')),
+        user == null
+            ? Container()
+            : Container(
+                margin: const EdgeInsets.only(bottom: 50),
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [Color(0xff0043ba), Color(0xff006df1)]),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50),
+                    )),
+              ),
+        user == null
+            ? Container()
+            : Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  width: 150,
+                  height: 150,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  'https://instagram.fbey22-1.fna.fbcdn.net/v/t51.2885-19/334588518_5786811308114765_3685955864041344258_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fbey22-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=j8qNnJtPvlwAX_wwsyj&edm=ALlQn9MBAAAA&ccb=7-5&oh=00_AfCPc9Vz00BSE-VioyGnYPcEF8KlCPDweI3NToEyUXC_kg&oe=64780597&_nc_sid=463a08')),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundColor:
+                              Theme.of(context).scaffoldBackgroundColor,
+                          child: Container(
+                            margin: const EdgeInsets.all(8.0),
+                            decoration: const BoxDecoration(
+                                color: Colors.green, shape: BoxShape.circle),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    child: Container(
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: const BoxDecoration(
-                          color: Colors.green, shape: BoxShape.circle),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
+              )
       ],
     );
   }

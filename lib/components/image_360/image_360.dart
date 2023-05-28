@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:guidly/models/place.dart';
 import 'package:panorama/panorama.dart';
 
 class MyPanoramaWidget extends StatelessWidget {
+  const MyPanoramaWidget({super.key, required this.place});
+  final PlaceModel place;
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
@@ -14,7 +17,7 @@ class MyPanoramaWidget extends StatelessWidget {
           height: screenHeight - 50,
           child: Panorama(
             child: Image.network(
-              "https://www.shutterstock.com/image-photo/baalbek-ancient-city-lebanonheliopolis-temple-260nw-751904593.jpg",
+              place.img,
               loadingBuilder: (BuildContext context, Widget child,
                   ImageChunkEvent? loadingProgress) {
                 if (loadingProgress == null) return child;
