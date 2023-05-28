@@ -30,10 +30,7 @@ class DefaultFirebaseOptions {
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return web;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -70,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '797565047110',
     projectId: 'guidly-90eb5',
     storageBucket: 'guidly-90eb5.appspot.com',
-    iosClientId: '797565047110-jsrpgkf7ormpmin4mdaj7bcqrpld5stq.apps.googleusercontent.com',
+    iosClientId:
+        '797565047110-jsrpgkf7ormpmin4mdaj7bcqrpld5stq.apps.googleusercontent.com',
     iosBundleId: 'com.example.guidly',
   );
 }
