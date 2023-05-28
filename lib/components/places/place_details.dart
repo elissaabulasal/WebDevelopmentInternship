@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:guidly/components/home_page/place.dart';
 import 'package:guidly/components/image_360/image_360.dart';
+import 'package:guidly/components/map/static_map.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PlaceDetailPage extends StatelessWidget {
   final Place place;
@@ -12,6 +14,15 @@ class PlaceDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _launchMapsUrl(double lat, double lon) async {
+      final url = 'https://www.google.com/maps/search/?api=1&query=$lat,$lon';
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Place Detail'),
@@ -48,31 +59,26 @@ class PlaceDetailPage extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: Container(
-              // Replace with your map widget
-              color:
-                  const Color.fromARGB(0, 158, 158, 158), // Placeholder color
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      place.name,
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 15),
+              child: Material(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(10),
+                elevation: 3,
+                child: Container(
+                    clipBehavior: Clip.hardEdge,
+                    width: double.infinity,
+                    height: 170,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(0, 94, 10, 238),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      place.location,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
+                    child: InkWell(
+                      onTap: () {
+                        _launchMapsUrl(33.8, 35.8);
+                      },
+                      child: StaticMapWidget(lat: 33.8, long: 35.6),
+                    )),
               ),
             ),
           ),
