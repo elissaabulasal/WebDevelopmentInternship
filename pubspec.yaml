@@ -48,7 +48,8 @@ dependencies:
   url_launcher: ^6.1.11
   google_static_maps_controller: ^1.0.0
   flutter_dotenv: ^5.0.2
-  flutterfire_ui: ^0.4.3+20
+  intl: ^0.18.1
+  firebase_auth: ^4.6.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:guidly/components/home_page/place.dart';
+import 'package:guidly/models/place.dart';
 
 class PlaceCard extends StatelessWidget {
-  final Place place;
+  final PlaceModel place;
 
   const PlaceCard({
     Key? key,
